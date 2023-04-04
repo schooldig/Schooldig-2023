@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Tblpesertadidik
- * 
+ *
  * @property string $noreg
  * @property string $nobk
  * @property string $noinduk
