@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Tblkela
- * 
+ *
  * @property int $idkelas
  * @property string $nmkelas
  * @property string $kelas
@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Tblkela extends Model
+class Tblkelas extends Model
 {
 	protected $table = 'tblkelas';
 	protected $primaryKey = 'idkelas';

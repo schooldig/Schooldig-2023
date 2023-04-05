@@ -24,6 +24,9 @@ Route::apiResource('/pegawai', App\Http\Controllers\Api\PegawaiController::class
 // Siswa
 Route::apiResource('/siswa', App\Http\Controllers\Api\SiswaController::class);
 
+// Siswa
+Route::apiResource('/kelas', App\Http\Controllers\Api\KelasController::class);
+
 
 // Peserta Didik
 Route::apiResource('/pesdik', App\Http\Controllers\Api\PesertaDidikController::class);
