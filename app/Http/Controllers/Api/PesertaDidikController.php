@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 // Model
 use App\Models\Tblpesertadidik;
+use App\Models\Tblsiswa;
 
 // Resources
 use App\Http\Resources\PesertaDidikResource;
+use App\Http\Resources\SiswaResource;
 
 // Any
 use Illuminate\Support\Facades\Validator;
@@ -21,7 +23,7 @@ class PesertaDidikController extends Controller
     public function index()
     {
         //get posts
-        $posts = Tblpesertadidik::latest()->paginate(5);
+        $posts = Tblsiswa::latest()->paginate(5);
 
         //return collection of posts as a resource
         return new PesertaDidikResource(true, 'List Data Posts', $posts);
@@ -48,7 +50,7 @@ class PesertaDidikController extends Controller
         // $image->storeAs('public/posts', $image->hashName());
 
         //create post
-        $post = Tblpesertadidik::create([
+        $post = Tblsiswa::create([
             // 'image'     => $image->hashName(),
             'noreg' => $request->noreg,
             'namalengkap' => $request->namalengkap,
@@ -61,14 +63,14 @@ class PesertaDidikController extends Controller
     }
 
     // Show Detail
-    public function show(Tblpesertadidik $post)
+    public function show(Tblsiswa $post)
     {
         //return single post as a resource
         return new PesertaDidikResource(true, 'Data Post Ditemukan!', $post);
     }
 
     // Update
-    public function update(Request $request, Tblpesertadidik $post)
+    public function update(Request $request, Tblsiswa $post)
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
@@ -111,7 +113,7 @@ class PesertaDidikController extends Controller
         return new PesertaDidikResource(true, 'Data Post Berhasil Diubah!', $post);
     }
 
-    public function destroy(Tblpesertadidik $post)
+    public function destroy(Tblsiswa $post)
     {
         //delete image
         Storage::delete('public/posts/'.$post->image);

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Tblsiswa
- * 
+ *
  * @property string $noreg
  * @property string $nis
  * @property string $nama
@@ -54,6 +54,7 @@ class Tblsiswa extends Model
 	];
 
 	protected $fillable = [
+        'noreg',
 		'nis',
 		'nama',
 		'alamat',

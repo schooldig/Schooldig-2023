@@ -1,4 +1,6 @@
-Untuk melakukan update hanya pada branch tertentu di repository Github Anda. Untuk melakukan update pada branch "coba", Anda dapat melakukan langkah-langkah berikut:
+Untuk melakukan update hanya pada branch tertentu di repository Github.
+Contoh :
+Untuk melakukan update pada branch "coba", Anda dapat melakukan langkah-langkah berikut:
 
 Pastikan Anda berada pada branch "coba" di lokal dengan perintah ```git checkout coba```.
 Lakukan perubahan yang Anda inginkan di proyek Laravel Anda di lokal.

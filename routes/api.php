@@ -18,6 +18,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Siswa
+Route::apiResource('/siswa', App\Http\Controllers\Api\SiswaController::class);
+
 
 // Peserta Didik
 Route::apiResource('/pesdik', App\Http\Controllers\Api\PesertaDidikController::class);

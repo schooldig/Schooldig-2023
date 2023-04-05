@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PesertaDidikResource extends JsonResource
+class SiswaResource extends JsonResource
 {
     //define properti
     public $status;
@@ -40,4 +40,3 @@ class PesertaDidikResource extends JsonResource
         ];
     }
 }
-
