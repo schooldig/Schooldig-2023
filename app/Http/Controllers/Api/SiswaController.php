@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
-// use Illuminate\Support\Facades\Sessions;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class SiswaController extends Controller
@@ -141,17 +140,31 @@ class SiswaController extends Controller
                 return response()->json($validator->errors(), 422);
             }
 
-            // Update the siswa
-            $siswa->update([
-                'nama' => $request->nama,
-                'jenis_kelamin' => $request->jenis_kelamin,
-                'tempat_lahir' => $request->tempat_lahir,
-                'tgl_lahir' => $request->tgl_lahir,
-                'alamat' => $request->alamat,
-                'no_hp' => $request->no_hp,
-                'email' => $request->email,
-                'jurusan' => $request->jurusan,
+            $data = $request->only([
+                'noreg'        => $noreg,
+                'nis'          => $noreg,
+                'nama'         => $request->nama,
+                'alamat'       => $request->alamat,
+                'hpsiswa'      => $request->hpsiswa,
+                'hportu'       => $request->hportu,
+                'gender'       => $request->gender,
+                'kelas'        => $request->kelas,
+                'nmkelas'      => $request->nmkelas,
+                'semester'     => $request->semester,
+                'thnpelajaran' => $request->thnpelajaran,
+                'statusx'      => $request->statusx,
+                'protek'       => $request->protek,
+                'opsi'         => $request->opsi,
+                'cek'          => $request->cek,
+                'deviceid'     => $request->deviceid,
+                'password'     => Hash::make($request->password),
+                'photo'        => $request->photo,
+                'idlokasi'     => $request->idlokasi,
+                'pengurus'     => $request->pengurus,
             ]);
+
+            // Update the siswa
+            $siswa->update($data);
 
             // Return response
             return new SiswaResource(true, 'Data Siswa Berhasil Diubah!', $siswa);

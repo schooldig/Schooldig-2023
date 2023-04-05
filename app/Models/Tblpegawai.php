@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Tblpegawai
- * 
+ *
  * @property string $kdguru
  * @property string $nmpegawai
  * @property string $nip
@@ -34,6 +34,7 @@ class Tblpegawai extends Model
 	public $timestamps = false;
 
 	protected $fillable = [
+        'kdguru',
 		'nmpegawai',
 		'nip',
 		'alpegawai',
