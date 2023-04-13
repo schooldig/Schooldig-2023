@@ -14,19 +14,40 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/**
+ * route "/register"
+ * @method "POST"
+ */
+Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->name('register');
+
+/**
+ * route "/login"
+ * @method "POST"
+ */
+Route::post('/login', App\Http\Controllers\Api\LoginController::class)->name('login');
+
+/**
+ * route "/user"
+ * @method "GET"
+ */
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+
     return $request->user();
 });
 
-// Pegawai/Guru
-Route::apiResource('/pegawai', App\Http\Controllers\Api\PegawaiController::class);
+// Route /pegawai
+Route::middleware(['auth:api', 'jwt.auth'])->apiResource('/pegawai', App\Http\Controllers\Api\PegawaiController::class);
 
-// Siswa
-Route::apiResource('/siswa', App\Http\Controllers\Api\SiswaController::class);
+// Route /siswa
+Route::middleware(['auth:api', 'jwt.auth'])->apiResource('/siswa', App\Http\Controllers\Api\SiswaController::class);
 
-// Siswa
-Route::apiResource('/kelas', App\Http\Controllers\Api\KelasController::class);
+// Route /kelas
+Route::middleware(['auth:api', 'jwt.auth'])->apiResource('/kelas', App\Http\Controllers\Api\KelasController::class);
 
-
-// Peserta Didik
-Route::apiResource('/pesdik', App\Http\Controllers\Api\PesertaDidikController::class);
+// Route /pesdik
+Route::middleware(['auth:api', 'jwt.auth'])->apiResource('/pesdik', App\Http\Controllers\Api\PesertaDidikController::class);
+/**
+ * route "/logout"
+ * @method "POST"
+ */
+Route::post('/logout', App\Http\Controllers\Api\LogoutController::class)->name('logout');
