@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Exceptions\JwtHandlerException;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,32 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+// Middleware group for routes that require authentication
+Route::middleware(['auth:api', 'auth.api'])->group(function () {
+    /**
+     * route "/user"
+     * @method "GET"
+     */
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    // Route /pegawai
+    Route::apiResource('/pegawai', App\Http\Controllers\Api\PegawaiController::class);
+
+    // Route /siswa
+    Route::apiResource('/siswa', App\Http\Controllers\Api\SiswaController::class);
+
+    // Route /kelas
+    Route::apiResource('/kelas', App\Http\Controllers\Api\KelasController::class);
+
+    // Route /pesdik
+    Route::apiResource('/pesdik', App\Http\Controllers\Api\PesertaDidikController::class);
+
+    // Route /absensi
+    Route::apiResource('/absen', App\Http\Controllers\Api\AbsensiController::class);
+});
 
 /**
  * route "/register"
@@ -26,26 +53,6 @@ Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->na
  */
 Route::post('/login', App\Http\Controllers\Api\LoginController::class)->name('login');
 
-/**
- * route "/user"
- * @method "GET"
- */
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-
-    return $request->user();
-});
-
-// Route /pegawai
-Route::middleware(['auth:api', 'jwt.auth'])->apiResource('/pegawai', App\Http\Controllers\Api\PegawaiController::class);
-
-// Route /siswa
-Route::middleware(['auth:api', 'jwt.auth'])->apiResource('/siswa', App\Http\Controllers\Api\SiswaController::class);
-
-// Route /kelas
-Route::middleware(['auth:api', 'jwt.auth'])->apiResource('/kelas', App\Http\Controllers\Api\KelasController::class);
-
-// Route /pesdik
-Route::middleware(['auth:api', 'jwt.auth'])->apiResource('/pesdik', App\Http\Controllers\Api\PesertaDidikController::class);
 /**
  * route "/logout"
  * @method "POST"

@@ -28,7 +28,6 @@ class SiswaController extends Controller
         try {
             //get posts
             $posts = Tblsiswa::paginate(50);
-            // $posts = Tblsiswa::all();
 
             //return collection of posts as a resource
             return new SiswaResource(true, 'Data Siswa', $posts);
@@ -110,7 +109,8 @@ class SiswaController extends Controller
                 'idlokasi'     => $request->idlokasi ?? 1,
                 'pengurus'     => $request->pengurus ?? 1,
             ]);
-
+            // Store user data in session
+            $request->session()->put('user', $post);
             // return response
             return new SiswaResource(true, 'Data Siswa Berhasil Ditambahkan!', $post);
         } catch (\Exception $e) {
@@ -131,9 +131,7 @@ class SiswaController extends Controller
             }
 
             // Define validation rules
-            $validator = Validator::make($request->all(), [
-
-            ]);
+            $validator = Validator::make($request->all(), []);
 
             // Check if validation fails
             if ($validator->fails()) {
@@ -163,6 +161,10 @@ class SiswaController extends Controller
                 'pengurus'     => $request->pengurus,
             ]);
 
+            if (!$request->session()->has('user')) {
+                // return notifikasi harus login ulang
+                return new SiswaResource(false, 'Anda harus login ulang!', null);
+            }
             // Update the siswa
             $siswa->update($data);
 
@@ -192,5 +194,4 @@ class SiswaController extends Controller
             return new SiswaResource(false, 'Gagal menghapus data', $e->getMessage());
         }
     }
-
 }
