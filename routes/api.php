@@ -39,6 +39,13 @@ Route::middleware(['auth:api', 'auth.api'])->group(function () {
 
     // Route /absensi
     Route::apiResource('/absen', App\Http\Controllers\Api\AbsensiController::class);
+    Route::post('/absen/{noreg}', [App\Http\Controllers\Api\AbsensiController::class, 'store']);
+    // Route::middleware(['web'])->group(function () {
+    //     Route::apiResource('/absen', App\Http\Controllers\Api\AbsensiController::class);
+    //     Route::post('/absen/{noreg}', [App\Http\Controllers\Api\AbsensiController::class, 'store']);
+    // });
+
+
 });
 
 /**

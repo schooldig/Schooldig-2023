@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use Symfony\Component\HttpFoundation\Session\Session;
+// use Illuminate\Session\Session;
 
 class AbsensiController extends Controller
 {
@@ -50,30 +51,16 @@ class AbsensiController extends Controller
     }
 
     //Store
-    public function store(Request $request, Session $session)
+    public function store(Request $request)
     {
         try {
             // Define validation rules
             $validator = Validator::make($request->all(), [
-                // 'tgltransaksi' => 'datetime',
-                // 'tglabsen' => 'required|date',
-                // 'semester' => 'required|int',
-                // // 'time_in' => 'required|time',
-                // // 'time_out' => 'required|time',
-                // 'hadir' => 'required|int',
-                // 'ijin' => 'required|int',
-                // 'sakit' => 'required|int',
-                // 'alpha' => 'required|int',
-                // 'pulang' => 'required|int',
+                'tgltransaksi' => 'datetime',
+                'tglabsen' => 'required|date',
             ], [
-                // 'tglabsen.required' => 'Tanggal absen harus diisi.',
-                // 'tglabsen.date' => 'Format tanggal absen tidak valid.',
-                // 'hadir.required' => 'Field hadir harus diisi.',
-                // 'ijin.required' => 'Field ijin harus diisi.',
-                // 'sakit.required' => 'Field sakit harus diisi.',
-                // 'alpha.required' => 'Field alpha harus diisi.',
-                // 'pulang.required' => 'Field pulang harus diisi.',
-                // 'tglacc.required' => 'Tanggal acc harus diisi.',
+                'tglabsen.required' => 'Tanggal absen harus diisi.',
+                'tglabsen.date' => 'Format tanggal absen tidak valid.',
             ]);
 
             // Check if validation fails
@@ -96,27 +83,28 @@ class AbsensiController extends Controller
                 'kelas' => $siswa->kelas,
                 'nmkelas' => $siswa->nmkelas,
                 'semester' => $siswa->semester,
-                'created_login' => $request->created_login ?? Carbon::now(),
-                'created_cookies' => $request->created_cookies ?? $session->getId(),
-                'time_in' => Carbon::now()->toTimeString(), // Menggunakan fungsi toTimeString() untuk mengambil waktu saat ini
-                'time_out' => $request->time_out,
-                'picture_in' => $request->picture_in,
-                'picture_out' => $request->picture_out,
-                'hadir' => $request->hadir ?? 1,
+                'thajaran' => $siswa->thnpelajaran,
+                // Bisa diperbaiki sesuai tergantung pengimplementasian
+                'time_in' => Carbon::now()->toTimeString(),
+                'time_out' => $request->time_out ?? 0,
+                'picture_in' => $request->picture_in ?? 0,
+                'picture_out' => $request->picture_out ?? 0,
+                //
+                'hadir' => ($request->ijin ?? 0) == 1 || ($request->sakit ?? 0) == 1 || ($request->alpha ?? 0) == 1 ? 0 : 1,
                 'ijin' => $request->ijin ?? 0,
                 'sakit' => $request->sakit ?? 0,
                 'alpha' => $request->alpha ?? 0,
                 'pulang' => $request->pulang ?? 0,
-                'ket' => $request->ket,
-                'userx' => $request->userx,
+                'ket' => $request->ket ?? 0,
+                'userx' => $request->userx ?? 0,
                 'acc' => $request->acc ?? 'Y',
                 'tglacc' => now()->toDateString(),
-                // 'tglacc' => now()->toDateString(),
                 'nmacc' => $request->nmacc ?? 'Y',
                 'lokasi' => $request->lokasi ?? 1,
-                'latitude_longtitude_in' => $request->latitude_longtitude_in,
-                'latitude_longtitude_out' => $request->latitude_longtitude_out,
+                'latitude_longtitude_in' => $request->latitude_longtitude_in ?? 0,
+                'latitude_longtitude_out' => $request->latitude_longtitude_out ?? 0,
             ]);
+
             // Store user data in session
             $request->session()->put('user', $post);
             // return response
