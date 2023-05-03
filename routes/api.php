@@ -14,6 +14,17 @@ use App\Exceptions\JwtHandlerException;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+/**
+ * route "/register"
+ * @method "POST"
+ */
+Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->name('register');
+
+/**
+ * route "/login"
+ * @method "POST"
+ */
+Route::post('/login', App\Http\Controllers\Api\LoginController::class)->name('login');
 
 // Middleware group for routes that require authentication
 Route::middleware(['auth:api', 'auth.api'])->group(function () {
@@ -28,6 +39,7 @@ Route::middleware(['auth:api', 'auth.api'])->group(function () {
     // Route /pegawai
     Route::apiResource('/pegawai', App\Http\Controllers\Api\PegawaiController::class);
 
+
     // Route /siswa
     Route::apiResource('/siswa', App\Http\Controllers\Api\SiswaController::class);
 
@@ -40,25 +52,15 @@ Route::middleware(['auth:api', 'auth.api'])->group(function () {
     // Route /absensi
     Route::apiResource('/absen', App\Http\Controllers\Api\AbsensiController::class);
     Route::post('/absen/{noreg}', [App\Http\Controllers\Api\AbsensiController::class, 'store']);
-    // Route::middleware(['web'])->group(function () {
+    Route::post('/absen/pulang/{noreg}', [App\Http\Controllers\Api\AbsensiController::class, 'update']);
+    // Route /absensi
+    // Route::middleware('session')->group(function () {
     //     Route::apiResource('/absen', App\Http\Controllers\Api\AbsensiController::class);
     //     Route::post('/absen/{noreg}', [App\Http\Controllers\Api\AbsensiController::class, 'store']);
     // });
-
-
 });
 
-/**
- * route "/register"
- * @method "POST"
- */
-Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->name('register');
 
-/**
- * route "/login"
- * @method "POST"
- */
-Route::post('/login', App\Http\Controllers\Api\LoginController::class)->name('login');
 
 /**
  * route "/logout"

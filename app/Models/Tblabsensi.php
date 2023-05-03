@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Tblabsensi
- * 
+ *
  * @property int $idabsensi
  * @property Carbon $tgltransaksi
  * @property Carbon $tglabsen
@@ -52,6 +52,7 @@ class Tblabsensi extends Model
 		'semester' => 'int',
 		'time_in' => 'date',
 		'time_out' => 'date',
+        'terlambat' => 'date',
 		'hadir' => 'int',
 		'ijin' => 'int',
 		'sakit' => 'int',
@@ -70,6 +71,7 @@ class Tblabsensi extends Model
 		'thajaran',
 		'time_in',
 		'time_out',
+        'terlambat',
 		'picture_in',
 		'picture_out',
 		'hadir',

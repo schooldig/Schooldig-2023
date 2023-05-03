@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('thajaran', 10)->default('0');
             $table->time('time_in')->default('00:00:00');
             $table->time('time_out')->default('00:00:00');
+            $table->time('terlambat')->default('00:00:00');
             $table->string('picture_in', 200)->default('');
             $table->string('picture_out', 200)->default('');
             $table->integer('hadir')->default(0);

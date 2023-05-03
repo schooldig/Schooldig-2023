@@ -50,6 +50,7 @@ return [
             'driver' => 'jwt',
             'provider' => 'users',
             'expire' => 60,
+            // set time untuk exp token jwt
         ],
     ],
 
